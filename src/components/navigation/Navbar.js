@@ -13,6 +13,7 @@ import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
+import Logo from '../../media/cycle_sml.png';
 
 
 const Navbar = () => {
@@ -70,9 +71,16 @@ const Navbar = () => {
           <MenuItem
             onClick={() => {
               handleMenuClose();
-              navigate('/dashboard/my-library');
+              navigate('/home');
             }}>
-            My Dashboard
+            Home
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              navigate('/cart');
+            }}>
+            My Basket
           </MenuItem>
           <MenuItem onClick={logout}>Log Out</MenuItem>
         </MenuList>
@@ -114,14 +122,17 @@ const Navbar = () => {
   return (
     <Box sx={{ flexGrow: 1, mb: 5 }}>
       <AppBar position='static'>
-        <Toolbar>
+        <Toolbar className='navbar'>
           <Typography
             variant='h6'
             noWrap
             component='div'
-            sx={{ display: { xs: 'none', sm: 'block' } }}>
-            BOOKS
-          </Typography>
+            sx={{ display: { xs: 'none', sm: 'block' } }}></Typography>
+          <img
+            src={Logo}
+            alt='Logo'
+            width='110px'
+          />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

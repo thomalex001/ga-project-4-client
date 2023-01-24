@@ -8,15 +8,13 @@ const getHeaders = () => ({
 const ENDPOINTS = {
   register: '/api/auth/register/',
   login: '/api/auth/login/',
-  latestBooks: '/api/books/latest',
   allProducts: '/api/products/',
+  productsAddedToCart: '/api/cart/',
   allGenreNames: '/api/genres/names',
+  createUserCart: `/api/cart/`,
   cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
-  singleBook: (id) => `/api/books/${id}`,
-  singleGenre: (id) => `/api/genres/${id}/books`,
   // search: (query) => `/api/books/search?q=${query}`,
-  userCart: (id) => `/api/users/${id}/books`,
-  userFavoriteBooks: (id) => `/api/users/${id}/favorite-books`
+  updateUserCart: (cartId) => `/api/cart/${cartId}/`,
 };
 
 const GET = (endpoint) => axios.get(endpoint);

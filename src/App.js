@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Welcome from './components/Welcome';
 import BuyerHomepage from './components/BuyerHomepage'
+import Cart from './components/Cart'
 
 window.Buffer = window.Buffer || require('buffer').Buffer;
 
@@ -14,6 +15,10 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
+        <Route
+          path='/cart'
+          element={<Cart />}
+        />
         <Route
           path='/home'
           element={<BuyerHomepage />}
@@ -27,7 +32,7 @@ const App = () => {
           element={<Login />}
         />
         <Route
-          path='/welcome'
+          path='/'
           element={<Welcome />}
         />
         <Route

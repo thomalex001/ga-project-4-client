@@ -23,7 +23,7 @@ const Login = () => {
     API.POST(API.ENDPOINTS.login, formFields)
       .then(({ data: { token } }) => {
         AUTH.setToken(token);
-        navigate('/');
+        navigate('/home');
       })
       .catch(({ response }) => {
         console.error(response);

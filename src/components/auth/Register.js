@@ -19,8 +19,6 @@ export default function Register() {
   const navigate = useNavigate();
   const [formFields, setFormFields] = useState({
     email: '',
-    firstName: '',
-    lastName: '',
     username: '',
     password: '',
     passwordConfirmation: ''
@@ -64,7 +62,7 @@ export default function Register() {
 
       AUTH.setToken(loginData.data.token);
 
-      navigate('/');
+      navigate('/home');
     } catch (e) {
       console.log(e);
       setError(true);

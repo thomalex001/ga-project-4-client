@@ -4,15 +4,26 @@ import { redirectToLogin } from '../lib/helpers';
 import ProductCard from './common/ProductCard';
 import { Container, Grid, Typography, Box } from '@mui/material';
 
+
 const ProductIndex = () => {
   const [products, setProducts] = useState(null);
 
-  redirectToLogin();
+  // redirectToLogin();
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.allProducts)
       .then(({ data }) => {
         setProducts(data);
+      })
+      .catch(({ message, response }) => {
+        console.error(message, response);
+      });
+
+    API.POST(API.ENDPOINTS.createUserCart, { product: [1] }, API.getHeaders())
+      .then(({ data }) => {
+        console.error('create cart', data);
+        // setCartId(data.id);
+        localStorage.setItem('cartId', data.id);
       })
       .catch(({ message, response }) => {
         console.error(message, response);
@@ -59,9 +70,9 @@ const ProductIndex = () => {
             <Grid
               item
               xs={4}
-              key={product._id}>
+              key={product.id}>
               <ProductCard
-                className='productCard'
+                className='ProductCard'
                 type={product.type.name}
                 dimensions={product.dimensions}
                 brand={product.brand}
@@ -70,6 +81,7 @@ const ProductIndex = () => {
                 description={product.description}
                 image={product.image}
                 price={product.price}
+                id={product.id}
               />
             </Grid>
           ))}
