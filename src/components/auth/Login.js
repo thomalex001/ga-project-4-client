@@ -21,8 +21,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     API.POST(API.ENDPOINTS.login, formFields)
-      .then(({ data: { token } }) => {
+      .then(({ data: { token, cartId } }) => {
         AUTH.setToken(token);
+        console.log(cartId);
         navigate('/home');
       })
       .catch(({ response }) => {

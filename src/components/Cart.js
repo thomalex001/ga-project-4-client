@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { API } from '../lib/api';
-import { redirectToLogin } from '../lib/helpers';
 import ProductCard from './common/ProductCard';
 import { Container, Grid, Typography, Box } from '@mui/material';
+import { useAuthenticated } from '../hooks/useAuthenticated';
 
 const ProductIndex = () => {
-  const [products, setProducts] = useState(null);
-
-  redirectToLogin();
+  const cartId = localStorage.getItem('cartId');
+  const [products, setProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [isLoggedIn] = useAuthenticated();
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.allProducts)
@@ -17,45 +18,79 @@ const ProductIndex = () => {
       .catch(({ message, response }) => {
         console.error(message, response);
       });
+    API.GET(API.ENDPOINTS.userCart(cartId), API.getHeaders())
+      .then(({ data }) => {
+        setCartProducts(data.product);
+      })
+      .catch(({ message, response }) => {
+        console.error(message, response);
+      });
   }, []);
 
+  const populateCart = (productId) => {
+    let filtered = cartProducts;
+    const existingProduct = cartProducts.find((id) => id === productId);
+    if (existingProduct) {
+      filtered = filtered.filter((id) => id !== productId);
+    } else {
+      filtered = [...filtered, productId];
+    }
+
+    API.PUT(
+      API.ENDPOINTS.userCart(cartId),
+      {
+        owner: isLoggedIn.sub,
+        product: filtered
+      },
+      API.getHeaders()
+    )
+      .then(({ data }) => {
+        setCartProducts(data.product);
+      })
+      .catch(({ message, response }) => {
+        console.error(message, response);
+      });
+  };
+
   return (
-    <>
-      <Container
-        maxWidth='1000px'
+    <Container
+      className='background-primary'
+      maxWidth='1000px'
+      sx={{
+        display: 'flex',
+        justifyContents: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}>
+      <Box
         sx={{
+          mb: 2,
           display: 'flex',
           justifyContents: 'center',
           alignItems: 'center',
           flexDirection: 'column'
         }}>
-        <Box
-          sx={{
-            mb: 2,
-            display: 'flex',
-            justifyContents: 'center',
-            alignItems: 'center',
-            flexDirection: 'column'
-          }}>
-          <Typography
-            sx={{ mb: 2 }}
-            variant='h5'>
-            My Basket
-          </Typography>
-        </Box>
-        <Grid
-          maxWidth='1000px'
-          container
-          spacing={2}
-          columns={{ xs: 4, md: 8 }}
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContents: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap'
-          }}>
-          {products?.map((product) => (
+        <Typography
+          sx={{ mb: 2 }}
+          variant='h5'>
+          My Basket
+        </Typography>
+      </Box>
+      <Grid
+        maxWidth='1000px'
+        container
+        spacing={2}
+        columns={{ xs: 4, md: 8 }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContents: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap'
+        }}>
+        {products.map((product) => {
+          if (!cartProducts.includes(product.id)) return null;
+          return (
             <Grid
               item
               xs={4}
@@ -70,12 +105,15 @@ const ProductIndex = () => {
                 description={product.description}
                 image={product.image}
                 price={product.price}
+                id={product.id}
+                isChecked={cartProducts.includes(product.id)}
+                onProductClick={populateCart}
               />
             </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </>
+          );
+        })}
+      </Grid>
+    </Container>
   );
 };
 

@@ -9,15 +9,15 @@ const ENDPOINTS = {
   register: '/api/auth/register/',
   login: '/api/auth/login/',
   allProducts: '/api/products/',
-  productsAddedToCart: '/api/cart/',
-  allGenreNames: '/api/genres/names',
   createUserCart: `/api/cart/`,
   cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
   // search: (query) => `/api/books/search?q=${query}`,
-  updateUserCart: (cartId) => `/api/cart/${cartId}/`,
+  // updateUserCart: (cartId) => `/api/cart/${cartId}/`,
+  userCart: (cartId) => `/api/cart/${cartId}/`,
 };
 
-const GET = (endpoint) => axios.get(endpoint);
+const GET = (endpoint, headers) =>
+  headers ? axios.get(endpoint, headers) : axios.get(endpoint);
 const POST = (endpoint, body, headers) =>
   headers ? axios.post(endpoint, body, headers) : axios.post(endpoint, body);
 const PUT = (endpoint, body, headers) => axios.put(endpoint, body, headers);

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { API } from '../lib/api';
-import { redirectToLogin } from '../lib/helpers';
+import { useAuthenticated } from '../hooks/useAuthenticated';
 import ProductCard from './common/ProductCard';
 import { Container, Grid, Typography, Box } from '@mui/material';
 
-
 const ProductIndex = () => {
-  const [products, setProducts] = useState(null);
-
-  // redirectToLogin();
+  const cartId = localStorage.getItem('cartId');
+  const [products, setProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
+  const [isLoggedIn] = useAuthenticated();
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.allProducts)
@@ -19,75 +19,99 @@ const ProductIndex = () => {
         console.error(message, response);
       });
 
-    API.POST(API.ENDPOINTS.createUserCart, { product: [1] }, API.getHeaders())
+    API.GET(API.ENDPOINTS.userCart(cartId), API.getHeaders())
       .then(({ data }) => {
-        console.error('create cart', data);
-        // setCartId(data.id);
-        localStorage.setItem('cartId', data.id);
+        setCartProducts(data.product);
       })
       .catch(({ message, response }) => {
         console.error(message, response);
       });
   }, []);
 
+  const populateCart = (productId) => {
+    let filtered = cartProducts;
+    const existingProduct = cartProducts.find((id) => id === productId);
+    if (existingProduct) {
+      filtered = filtered.filter((id) => id !== productId);
+    } else {
+      filtered = [...filtered, productId];
+    }
+
+    API.PUT(
+      API.ENDPOINTS.userCart(cartId),
+      {
+        owner: isLoggedIn.sub,
+        product: filtered
+      },
+      API.getHeaders()
+    )
+      .then(({ data }) => {
+        setCartProducts(data.product);
+      })
+      .catch(({ message, response }) => {
+        console.error(message, response);
+      });
+  };
+
   return (
-    <>
-      <Container
-        maxWidth='1000px'
+    <Container
+      className='background-primary'
+      maxWidth='1000px'
+      sx={{
+        display: 'flex',
+        justifyContents: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}>
+      <Box
         sx={{
+          mb: 2,
           display: 'flex',
           justifyContents: 'center',
           alignItems: 'center',
           flexDirection: 'column'
         }}>
-        <Box
-          sx={{
-            mb: 2,
-            display: 'flex',
-            justifyContents: 'center',
-            alignItems: 'center',
-            flexDirection: 'column'
-          }}>
-          <Typography
-            sx={{ mb: 2 }}
-            variant='h5'>
-            Bike Parts
-          </Typography>
-        </Box>
-        <Grid
-          maxWidth='1000px'
-          container
-          spacing={2}
-          columns={{ xs: 4, md: 8 }}
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContents: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap'
-          }}>
-          {products?.map((product) => (
-            <Grid
-              item
-              xs={4}
-              key={product.id}>
-              <ProductCard
-                className='ProductCard'
-                type={product.type.name}
-                dimensions={product.dimensions}
-                brand={product.brand}
-                color={product.color}
-                material={product.material}
-                description={product.description}
-                image={product.image}
-                price={product.price}
-                id={product.id}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </>
+        <Typography
+          sx={{ mb: 2 }}
+          variant='h5'>
+          Bike Parts
+        </Typography>
+      </Box>
+      <Grid
+        maxWidth='1000px'
+        container
+        spacing={2}
+        columns={{ xs: 4, md: 8 }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContents: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap'
+        }}>
+        {products.map((product) => (
+          <Grid
+            item
+            xs={4}
+            key={product.id}>
+            <ProductCard
+              className='ProductCard'
+              type={product.type.name}
+              dimensions={product.dimensions}
+              brand={product.brand}
+              color={product.color}
+              material={product.material}
+              description={product.description}
+              image={product.image}
+              price={product.price}
+              id={product.id}
+              isChecked={cartProducts.includes(product.id)}
+              onProductClick={populateCart}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

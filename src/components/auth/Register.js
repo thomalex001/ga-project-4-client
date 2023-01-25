@@ -62,12 +62,21 @@ export default function Register() {
 
       AUTH.setToken(loginData.data.token);
 
-      navigate('/home');
+      API.POST(API.ENDPOINTS.createUserCart, {}, API.getHeaders())
+        .then(({ data }) => {
+          // console.error('create cart', data);
+          localStorage.setItem('cartId', data.id);
+          navigate('/home');
+        })
+        .catch(({ message, response }) => {
+          console.error(message, response);
+        });
     } catch (e) {
       console.log(e);
       setError(true);
     }
   };
+
 
   return (
     <Container

@@ -2,7 +2,10 @@ const setToken = (token) => localStorage.setItem('token', token);
 
 const getToken = () => localStorage.getItem('token');
 
-const logout = () => localStorage.removeItem('token');
+const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('cartId');
+}
 
 const getPayload = () => {
   const token = getToken();

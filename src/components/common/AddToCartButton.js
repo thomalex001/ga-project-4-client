@@ -1,31 +1,17 @@
-import { useState, useEffect } from 'react';
-import { API } from '../../lib/api';
+import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 
-export default function AddToCartButton({ id }) {
-  const [isChecked, setIsChecked] = useState(false);
-  const cartId = localStorage.getItem('cartId');
-
-  useEffect(() => {
-    if (!id || !isChecked || !cartId) return;
-    API.PUT(
-      API.ENDPOINTS.updateUserCart(cartId),
-      { productId: id },
-      API.getHeaders()
-    )
-      .then(() => {})
-      .catch(({ message, response }) => {
-        console.error(message, response);
-      });
-  }, [id, isChecked]);
+export default function AddToCartButton({ id, isChecked, onProductClick }) {
+  const [isSelected, setIsSelected] = useState(isChecked);
 
   const handleChange = () => {
-    setIsChecked(!isChecked);
+    setIsSelected(!isSelected);
+    onProductClick(id);
   };
 
   return (
     <Radio
-      checked={isChecked}
+      checked={isSelected}
       onClick={handleChange}
       value={id}
       name='radio-buttons'
