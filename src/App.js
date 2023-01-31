@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import Welcome from './components/Welcome';
 import BuyerHomepage from './components/BuyerHomepage'
 import Cart from './components/Cart'
+import OrderConfirmation from './components/OrderConfirmation'
 
 window.Buffer = window.Buffer || require('buffer').Buffer;
 
@@ -15,6 +16,10 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
+        <Route
+          path='/cart/order_confirmation'
+          element={<OrderConfirmation />}
+        />
         <Route
           path='/cart'
           element={<Cart />}

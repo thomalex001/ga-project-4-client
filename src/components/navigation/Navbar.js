@@ -120,7 +120,7 @@ const Navbar = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 5 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar className='navbar'>
           <Typography
@@ -132,7 +132,14 @@ const Navbar = () => {
             src={Logo}
             alt='Logo'
             width='110px'
+            onClick={() => navigate('/home')}
+            style={{ cursor: 'pointer' }}
           />
+          <Typography
+            sx={{ ml: 2 }}
+            style={{ fontFamily: 'courgette, cursive', fontSize: '30px' }}>
+            Custom Vintage Bikes
+          </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

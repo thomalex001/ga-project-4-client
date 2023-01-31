@@ -72,9 +72,10 @@ const ProductIndex = () => {
           flexDirection: 'column'
         }}>
         <Typography
-          sx={{ mb: 2 }}
+          style={{ fontFamily:'Courgette, cursive' }}
+          sx={{ mb: 2, pt: 2 }}
           variant='h5'>
-          Bike Parts
+          Homepage
         </Typography>
       </Box>
       <Grid

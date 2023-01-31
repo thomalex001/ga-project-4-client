@@ -2,3 +2,18 @@
 @import '_welcome.scss';
 @import '_buyer_homepage.scss';
 @import '_product_card.scss';
+@import '_order_confirmation';
+
+
+
+* {
+   text-decoration: none;
+}
+#root {
+  background-color: #eadec1;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+}
