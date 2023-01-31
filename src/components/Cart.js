@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API } from '../lib/api';
 import ProductCard from './common/ProductCard';
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Grid, Typography, Box, Button } from '@mui/material';
 import { useAuthenticated } from '../hooks/useAuthenticated';
 
 const ProductIndex = () => {
@@ -9,6 +10,8 @@ const ProductIndex = () => {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoggedIn] = useAuthenticated();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     API.GET(API.ENDPOINTS.allProducts)
@@ -71,7 +74,8 @@ const ProductIndex = () => {
           flexDirection: 'column'
         }}>
         <Typography
-          sx={{ mb: 2 }}
+          style={{ fontFamily: 'Courgette, cursive' }}
+          sx={{ mb: 2, pt: 2 }}
           variant='h5'>
           My Basket
         </Typography>
@@ -113,6 +117,16 @@ const ProductIndex = () => {
           );
         })}
       </Grid>
+      <Typography>
+        <p>Total Price: £ </p>
+      </Typography>
+      <Button
+        style={{ backgroundColor: '#597877' }}
+        variant='contained'
+        onClick={() => navigate('/cart/order_confirmation')}
+        sx={{ mb: 4 }}>
+        Place Order
+      </Button>
     </Container>
   );
 };

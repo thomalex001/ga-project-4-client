@@ -41,7 +41,8 @@ export default function ProductCard({
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'flex-start'
+            alignItems: 'center'
+
           }}>
           <Box>
             <Typography color='text.primary'>{type}</Typography>
@@ -58,8 +59,10 @@ export default function ProductCard({
               {price}
             </Typography>
           </Box>
-          <Box>
-            <label className='add-to-cart-button'>
+          <Box >
+            <label
+              className='add-to-cart-button'
+              style={{ fontFamily: 'Courgette, cursive' }}>
               <AddToCartButton
                 id={id}
                 onProductClick={onProductClick}
@@ -74,10 +77,11 @@ export default function ProductCard({
             component='img'
             image={image}
             alt={type}
-            sx={{ minHeight: 180, maxWidth: 250 }}
+            sx={{  width: 220, height: 210 }}
           />
         </Box>
       </CardContent>
     </Card>
-  );
+  ); 
 }
+

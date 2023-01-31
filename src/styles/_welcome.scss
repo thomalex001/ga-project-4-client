@@ -1,6 +1,21 @@
 .welcome-background {
   background-color: #fff6e9 ;
+  background-image: linear-gradient(rgba(207, 189, 134, 0.436), rgba(239, 219, 195, 0.5)),
+    url("../media//cycle_large.png");
+  background-size: contain !important;
+  background-position-y: 40px ;
+  background-repeat: no-repeat;
+  padding: 0 !important;
 }
-.welcome-button {
-  background-color: #fff6e9 ;
+
+.welcome-header {
+  background-color: rgba(19, 10, 10, 0.33);
+  backdrop-filter: contrast;
+  width: 100vw;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px black;
+  font-family: 'Courgette', cursive;
+  margin-top: -8rem;
+  padding-bottom: 20px;
+  padding-left: 0
 }

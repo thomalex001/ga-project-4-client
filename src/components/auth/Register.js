@@ -151,7 +151,7 @@ export default function Register() {
         </div>
         <div>
           <Button
-            sx={{ bgcolor: 'primary' }}
+            style={{ backgroundColor: '#597877' }}
             variant='contained'
             component='label'>
             Upload Picture
@@ -180,12 +180,13 @@ export default function Register() {
             ) : (
               <CheckCircleIcon
                 fontSize='large'
-                sx={{ color: 'primary.dark' }}
+                sx={{ color: '#597877' }}
               />
             )}
           </IconButton>
         </div>
         <Button
+          style={{ backgroundColor: '#597877' }}
           fullWidth
           sx={{ mt: 2 }}
           variant='contained'
@@ -194,9 +195,15 @@ export default function Register() {
           Create Account
         </Button>
       </form>
-      <Box sx={{ mt: 2, display: 'flex' }}>
-        <Typography sx={{ mr: 1 }}>Already have an account?</Typography>
-        <Link to='/login'>Sign-in</Link>
+      <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+        <p style={{ margin: 0, paddingRight: '5px' }}>
+          Already have an account?
+        </p>
+        <Link
+          style={{ color: 'primary' }}
+          to='/login'>
+          Sign-in
+        </Link>
       </Box>
     </Container>
   );
