@@ -6,14 +6,14 @@ const getHeaders = () => ({
 });
 
 const ENDPOINTS = {
-  register: '/api/auth/register/',
-  login: '/api/auth/login/',
-  allProducts: '/api/products/',
-  createUserCart: `/api/cart/`,
+  register: `${process.env.REACT_APP_BASE_URL}/api/auth/register/`,
+  login: `${process.env.REACT_APP_BASE_URL}/api/auth/login/`,
+  allProducts: `${process.env.REACT_APP_BASE_URL}/api/products/`,
+  createUserCart: `${process.env.REACT_APP_BASE_URL}/api/cart/`,
   cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
   // search: (query) => `/api/books/search?q=${query}`,
   // updateUserCart: (cartId) => `/api/cart/${cartId}/`,
-  userCart: (cartId) => `/api/cart/${cartId}/`,
+  userCart: (cartId) => `${process.env.REACT_APP_BASE_URL}/api/cart/${cartId}/`
 };
 
 const GET = (endpoint, headers) =>
@@ -24,11 +24,3 @@ const PUT = (endpoint, body, headers) => axios.put(endpoint, body, headers);
 const DELETE = (endpoint, headers) => axios.delete(endpoint, headers);
 
 export const API = { GET, POST, PUT, DELETE, ENDPOINTS, getHeaders };
-
-// urlpatterns = [
-//   path('admin/', admin.site.urls),
-//   path('api/products/', include('products.urls')),
-//   path('api/types/', include('type.urls')),
-//   path('api/cart/', include('cart.urls')),
-//   path('api/auth/', include('jwt_auth.urls'))
-// ];

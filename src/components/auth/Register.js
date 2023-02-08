@@ -64,7 +64,6 @@ export default function Register() {
 
       API.POST(API.ENDPOINTS.createUserCart, {}, API.getHeaders())
         .then(({ data }) => {
-          // console.error('create cart', data);
           localStorage.setItem('cartId', data.id);
           navigate('/home');
         })

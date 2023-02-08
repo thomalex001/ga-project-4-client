@@ -138,7 +138,7 @@ const Navbar = () => {
           <Typography
             sx={{ ml: 2 }}
             style={{ fontFamily: 'courgette, cursive', fontSize: '30px' }}>
-            Custom Vintage Bikes
+            Vintage Custom Cycles
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
