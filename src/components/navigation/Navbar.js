@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticated } from '../../hooks/useAuthenticated';
 import { AUTH } from '../../lib/auth';
+import { API } from '../../lib/api';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -45,7 +46,20 @@ const Navbar = () => {
   const logout = () => {
     AUTH.logout();
     handleMenuClose();
-    navigate('/welcome');
+    navigate('/');
+
+  // API.DELETE(API.ENDPOINTS.deleteUserCart, {}, API.getHeaders())
+  //   .then(({ data }) => {
+  //     if (data && data.id) {
+  //       localStorage.setItem('cartId', data.id);
+  //     } else {
+  //       console.error('Invalid response data:', data);
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error('An error occurred:', error);
+  //   });
+
   };
 
   const menuId = 'primary-search-account-menu';
