@@ -13,7 +13,8 @@ const ENDPOINTS = {
   cloudinary: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
   // search: (query) => `/api/books/search?q=${query}`,
   // updateUserCart: (cartId) => `/api/cart/${cartId}/`,
-  userCart: (cartId) => `${process.env.REACT_APP_BASE_URL}/api/cart/${cartId}/`
+  userCart: (cartId) => `${process.env.REACT_APP_BASE_URL}/api/cart/${cartId}/`,
+  // deleteUserCart: (cartId) => `${process.env.REACT_APP_BASE_URL}/api/cart/${cartId}/`
 };
 
 const GET = (endpoint, headers) =>

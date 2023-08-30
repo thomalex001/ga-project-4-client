@@ -211,15 +211,15 @@ export const API = { GET, POST, PUT, DELETE, ENDPOINTS, getHeaders };
 really fun and enjoyable.
 
 ## Key Learning/Takeways
-* Django apps models and relationships
-* Building of a full-stack app for the first time using Django/React as a solo project
+* Django apps models and relationships.
+* Building a full-stack app for the first time using Django/React as a solo project.
 
 ## Bugs
-* Some of the images in the `BookCard` are not showing with the right format which can be due to some CSS rules. 
+* Uppon login a `Cart` is created with a unique `id` however when logging off and on again the `id` shows as `null`. 
 
 ## Future Improvements
 * Making the whole app responsive to mobile and tablet.
-* Adding total price and removing each item bought from the database
+* Adding total price and removing each item bought from the database.
 * Adding a **"Sellers"** login in order to make the app dynamic.
 * Adding the Avatars uppon login.
 
